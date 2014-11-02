@@ -20,13 +20,14 @@ return array(
 
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
-		
+		/*
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
 			'password'=>'123',
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
 		),
+		*/
 		'admin'
 		
 	),
@@ -36,8 +37,12 @@ return array(
 	'components'=>array(
 		'user'=>array(
 			// enable cookie-based authentication
-			'allowAutoLogin'=>true,
+			'allowAutoLogin'=>false,
+			'loginUrl'		=> array('admin/login/index')
 		),
+		'cache'=>array(
+			'class'	=>	'system.caching.CFileCache'
+			),
 		// uncomment the following to enable URLs in path-format
 		/*
 		'urlManager'=>array(
@@ -61,7 +66,7 @@ return array(
 			'password' => 'oceanhliu',
 			'charset' => 'utf8',
 			'tablePrefix' => 'hd_',
-			'enableParamLogging'  => true
+			'enableParamLogging'  => true//开启调试信息的sql语句具体值信息
 		),
 		
 		'errorHandler'=>array(

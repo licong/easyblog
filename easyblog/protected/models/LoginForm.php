@@ -10,6 +10,7 @@ class LoginForm extends CFormModel
 	public $username;
 	public $password;
 	public $rememberMe;
+	public $captcha;
 
 	private $_identity;
 
@@ -20,13 +21,17 @@ class LoginForm extends CFormModel
 	 */
 	public function rules()
 	{
+		//验证规则 
+		//array('name值', 'required/boolean/captcha', '错误信息')
 		return array(
 			// username and password are required
-			array('username, password', 'required'),
+			array('username', 'required', 'message'=>'用户名必须填写'),
+			array('password', 'required', 'message'=>'密码必须填写'),
 			// rememberMe needs to be a boolean
 			array('rememberMe', 'boolean'),
 			// password needs to be authenticated
 			array('password', 'authenticate'),
+			array('captcha', 'captcha', 'message'=>'验证码错误')
 		);
 	}
 
@@ -48,9 +53,11 @@ class LoginForm extends CFormModel
 	{
 		if(!$this->hasErrors())
 		{
+			echo "ca ca aca !!!".$this->username . $this->password;
 			$this->_identity=new UserIdentity($this->username,$this->password);
+			echo "fuck !!!!";
 			if(!$this->_identity->authenticate())
-				$this->addError('password','Incorrect username or password.');
+				$this->addError('password','用户名或者密码不正确');
 		}
 	}
 
